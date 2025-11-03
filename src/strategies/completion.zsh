@@ -130,6 +130,9 @@ _zsh_autosuggest_strategy_completion() {
 		# the second null byte, so trim those off the end.
 		# See http://www.zsh.org/mla/workers/2015/msg03290.html
 		suggestion="${${(@0)line}[2]}"
+
+		# If the suggestion is the same as the input, treat it as no suggestion
+		[[ "$suggestion" == "$1" ]] && unset suggestion
 	} always {
 		# Destroy the pty
 		zpty -d $ZSH_AUTOSUGGEST_COMPLETIONS_PTY_NAME
